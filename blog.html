@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health Blog | Origin Chinese Medicine | 健康文章</title>
+  <meta name="description" content="Visual health guides and TCM wellness tips from Origin Chinese Medicine Singapore." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green-deep:#1E3D1F; --green-mid:#3B6D11; --green-soft:#639922;
+      --green-light:#C0DD97; --green-pale:#EAF3DE; --beige:#F7F3EC;
+      --beige-dark:#E8E0D0; --cream:#FDFAF5; --text-dark:#1A1A18;
+      --text-mid:#3D3D38; --text-soft:#6B6B60; --text-muted:#9A9A8E; --white:#FFFFFF;
+      --font-display:'Cormorant Garamond','Noto Serif SC',serif;
+      --font-body:'DM Sans','Noto Serif SC',sans-serif;
+      --r-md:12px; --r-lg:20px; --r-xl:32px; --t:0.3s ease;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--cream);color:var(--text-dark);font-size:16px;line-height:1.7;overflow-x:hidden;}
+    h1,h2,h3{font-family:var(--font-display);font-weight:400;line-height:1.2;}
+    a{text-decoration:none;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;background:rgba(253,250,245,0.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(192,221,151,0.3);transition:box-shadow var(--t);}
+    nav.scrolled{box-shadow:0 2px 20px rgba(30,61,31,0.08);}
+    .nav-logo{display:flex;flex-direction:column;gap:1px;}
+    .nav-logo-en{font-family:var(--font-display);font-size:1.15rem;font-weight:500;color:var(--green-deep);letter-spacing:0.02em;}
+    .nav-logo-zh{font-family:'Noto Serif SC',serif;font-size:0.68rem;color:var(--green-soft);letter-spacing:0.15em;}
+    .nav-links{display:flex;gap:32px;list-style:none;}
+    .nav-links a{font-size:0.85rem;color:var(--text-mid);transition:color var(--t);}
+    .nav-links a:hover,.nav-links a.active{color:var(--green-mid);}
+    .nav-cta{padding:10px 22px;background:var(--green-deep);color:var(--green-pale);border:none;border-radius:100px;font-family:var(--font-body);font-size:0.85rem;cursor:pointer;transition:background var(--t);}
+    .nav-cta:hover{background:var(--green-mid);}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+    .hamburger span{display:block;width:24px;height:1.5px;background:var(--green-deep);}
+    .mobile-nav{display:none;position:fixed;inset:0;z-index:99;background:var(--cream);flex-direction:column;align-items:center;justify-content:center;gap:32px;}
+    .mobile-nav.open{display:flex;}
+    .mobile-nav a{font-family:var(--font-display);font-size:1.9rem;color:var(--green-deep);}
+    .mobile-nav .close-btn{position:absolute;top:24px;right:40px;background:none;border:none;font-size:1.8rem;color:var(--text-soft);cursor:pointer;}
+
+    /* BLOG HERO */
+    .blog-hero{padding:130px 48px 52px;background:var(--beige);text-align:center;}
+    .eyebrow{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--green-soft);display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;}
+    .eyebrow::before{content:'';display:block;width:22px;height:1px;background:var(--green-soft);}
+    .eyebrow::after{content:'';display:block;width:22px;height:1px;background:var(--green-soft);}
+    .blog-hero h1{font-size:clamp(2rem,4vw,3.2rem);color:var(--green-deep);margin-bottom:8px;}
+    .blog-hero .zh-sub{font-family:'Noto Serif SC',serif;font-size:0.95rem;color:var(--green-soft);margin-bottom:14px;}
+    .blog-hero p{font-size:0.93rem;color:var(--text-soft);max-width:500px;margin:0 auto;}
+
+    /* FILTER */
+    .filter-bar{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;padding:28px 48px 0;background:var(--beige);}
+    .filter-btn{padding:7px 18px;border-radius:100px;font-size:0.8rem;border:1px solid var(--beige-dark);background:var(--white);color:var(--text-mid);cursor:pointer;transition:all 0.2s;font-family:var(--font-body);}
+    .filter-btn:hover,.filter-btn.active{background:var(--green-deep);color:var(--green-pale);border-color:var(--green-deep);}
+
+    /* GRID */
+    .blog-section{padding:48px 48px 88px;background:var(--beige);}
+    .posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+    .post-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--beige-dark);overflow:hidden;cursor:pointer;transition:transform 0.25s,box-shadow 0.25s;}
+    .post-card:hover{transform:translateY(-6px);box-shadow:0 16px 44px rgba(30,61,31,0.1);}
+    .post-card img{width:100%;display:block;object-fit:cover;aspect-ratio:1/1;background:var(--green-pale);}
+    .post-placeholder{width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-size:3.2rem;}
+    .c1{background:#EAF3DE;} .c2{background:#F5F0E8;} .c3{background:#E8F0EA;} .c4{background:#F0EAE8;}
+    .post-meta{padding:16px 18px;}
+    .post-category{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-soft);margin-bottom:6px;}
+    .post-title{font-family:var(--font-display);font-size:0.98rem;color:var(--green-deep);line-height:1.4;margin-bottom:6px;}
+    .post-title-zh{font-family:'Noto Serif SC',serif;font-size:0.78rem;color:var(--green-soft);margin-bottom:8px;}
+    .post-date{font-size:0.72rem;color:var(--text-muted);}
+
+    /* LIGHTBOX */
+    .lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(10,20,10,0.85);align-items:center;justify-content:center;padding:24px;}
+    .lightbox.open{display:flex;}
+    .lightbox-inner{max-width:660px;width:100%;background:var(--white);border-radius:var(--r-xl);overflow:hidden;position:relative;}
+    .lightbox-img-area{width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:var(--beige);}
+    .lightbox-img-area img{width:100%;height:100%;object-fit:contain;display:block;}
+    .lightbox-img-area .lb-placeholder{font-size:5rem;}
+    .lightbox-body{padding:22px 26px;}
+    .lightbox-cat{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-soft);margin-bottom:6px;}
+    .lightbox-title{font-family:var(--font-display);font-size:1.25rem;color:var(--green-deep);margin-bottom:4px;}
+    .lightbox-title-zh{font-family:'Noto Serif SC',serif;font-size:0.86rem;color:var(--green-soft);}
+    .lightbox-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.28);color:white;border:none;font-size:0.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+
+    /* ADD POST GUIDE */
+    .add-guide{margin-top:44px;padding:22px 26px;background:var(--white);border-radius:var(--r-lg);border:1px dashed var(--green-light);}
+    .add-guide h4{font-family:var(--font-display);color:var(--green-deep);margin-bottom:8px;font-size:1.1rem;}
+    .add-guide p{font-size:0.83rem;color:var(--text-soft);line-height:1.75;}
+    .add-guide code{background:var(--beige);padding:2px 7px;border-radius:4px;font-family:monospace;font-size:0.8rem;color:var(--green-mid);}
+
+    /* FOOTER */
+    footer{background:var(--green-deep);border-top:1px solid rgba(192,221,151,0.15);padding:36px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;}
+    .footer-logo-en{font-family:var(--font-display);font-size:1.05rem;color:var(--green-pale);}
+    .footer-logo-zh{font-family:'Noto Serif SC',serif;font-size:0.7rem;color:var(--green-soft);margin-top:2px;}
+    .footer-links{display:flex;gap:22px;}
+    .footer-links a{font-size:0.78rem;color:var(--green-light);transition:color var(--t);}
+    .footer-links a:hover{color:var(--green-pale);}
+    .footer-copy{font-size:0.72rem;color:var(--green-soft);}
+
+    .fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;}
+    .fade-in.visible{opacity:1;transform:translateY(0);}
+
+    @media(max-width:900px){
+      nav{padding:0 24px;} .nav-links,.nav-cta{display:none;} .hamburger{display:flex;}
+      .blog-hero,.filter-bar,.blog-section{padding-left:24px;padding-right:24px;}
+      .blog-hero{padding-top:108px;}
+      .posts-grid{grid-template-columns:repeat(2,1fr);}
+      footer{padding:28px 24px;flex-direction:column;text-align:center;}
+      .footer-links{flex-wrap:wrap;justify-content:center;}
+    }
+    @media(max-width:560px){.posts-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="close-btn" onclick="closeMobileNav()">✕</button>
+  <a href="index.html" onclick="closeMobileNav()">Home 首页</a>
+  <a href="index.html#about" onclick="closeMobileNav()">About 关于</a>
+  <a href="index.html#services" onclick="closeMobileNav()">Services 服务</a>
+  <a href="blog.html" onclick="closeMobileNav()">Blog 文章</a>
+  <a href="index.html#contact" onclick="closeMobileNav()">Contact 联系</a>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-en">Origin Chinese Medicine</span>
+    <span class="nav-logo-zh">源·中医</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#home">Home 首页</a></li>
+    <li><a href="index.html#about">About 关于</a></li>
+    <li><a href="index.html#services">Services 服务</a></li>
+    <li><a href="blog.html" class="active">Blog 文章</a></li>
+    <li><a href="index.html#contact">Contact 联系</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">预约 Book Now</a>
+  <button class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<div class="blog-hero">
+  <div class="eyebrow">Health insights · 健康知识</div>
+  <h1>From the Practice</h1>
+  <div class="zh-sub">中医健康图文指南</div>
+  <p>Visual guides and wellness tips rooted in Traditional Chinese Medicine — designed to be easy to read and share.</p>
+</div>
+
+<!-- FILTERS -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterPosts('all',this)">All · 全部</button>
+  <button class="filter-btn" onclick="filterPosts('womens',this)">Women's Health · 妇科</button>
+  <button class="filter-btn" onclick="filterPosts('sleep',this)">Sleep · 睡眠</button>
+  <button class="filter-btn" onclick="filterPosts('digestion',this)">Digestion · 消化</button>
+  <button class="filter-btn" onclick="filterPosts('stress',this)">Stress · 压力</button>
+  <button class="filter-btn" onclick="filterPosts('immunity',this)">Immunity · 免疫力</button>
+  <button class="filter-btn" onclick="filterPosts('seasonal',this)">Seasonal · 节气养生</button>
+</div>
+
+<!-- POSTS -->
+<div class="blog-section">
+  <div class="posts-grid" id="postsGrid">
+
+    <div class="post-card fade-in" data-category="womens" onclick="openLightbox(this)">
+      <div class="post-placeholder c1">🌸</div>
+      <div class="post-meta">
+        <div class="post-category">Women's Health · 妇科</div>
+        <div class="post-title">How TCM Supports Hormonal Balance</div>
+        <div class="post-title-zh">中医如何调理荷尔蒙平衡</div>
+        <div class="post-date">June 2025</div>
+      </div>
+    </div>
+
+    <div class="post-card fade-in" data-category="sleep" onclick="openLightbox(this)" style="transition-delay:0.1s">
+      <div class="post-placeholder c2">😴</div>
+      <div class="post-meta">
+        <div class="post-category">Sleep · 睡眠</div>
+        <div class="post-title">5 TCM Habits for a Better Night's Sleep</div>
+        <div class="post-title-zh">改善睡眠的5个中医养生习惯</div>
+        <div class="post-date">May 2025</div>
+      </div>
+    </div>
+
+    <div class="post-card fade-in" data-category="digestion" onclick="openLightbox(this)" style="transition-delay:0.2s">
+      <div class="post-placeholder c3">🌿</div>
+      <div class="post-meta">
+        <div class="post-category">Digestion · 消化</div>
+        <div class="post-title">Heal Your Gut the TCM Way</div>
+        <div class="post-title-zh">中医养脾胃，告别消化问题</div>
+        <div class="post-date">April 2025</div>
+      </div>
+    </div>
+
+    <div class="post-card fade-in" data-category="stress" onclick="openLightbox(this)">
+      <div class="post-placeholder c4">🧘</div>
+      <div class="post-meta">
+        <div class="post-category">Stress · 压力</div>
+        <div class="post-title">Managing Stress: Liver Qi Stagnation</div>
+        <div class="post-title-zh">中医解压：从疏肝解郁开始</div>
+        <div class="post-date">March 2025</div>
+      </div>
+    </div>
+
+    <div class="post-card fade-in" data-category="immunity" onclick="openLightbox(this)" style="transition-delay:0.1s">
+      <div class="post-placeholder c1">🛡️</div>
+      <div class="post-meta">
+        <div class="post-category">Immunity · 免疫力</div>
+        <div class="post-title">Boost Your Wei Qi: TCM Immunity Tips</div>
+        <div class="post-title-zh">补益卫气，增强免疫力</div>
+        <div class="post-date">February 2025</div>
+      </div>
+    </div>
+
+    <div class="post-card fade-in" data-category="seasonal" onclick="openLightbox(this)" style="transition-delay:0.2s">
+      <div class="post-placeholder c2">🌾</div>
+      <div class="post-meta">
+        <div class="post-category">Seasonal · 节气养生</div>
+        <div class="post-title">Eating with the Seasons: Summer in TCM</div>
+        <div class="post-title-zh">顺应节气饮食：夏季养生指南</div>
+        <div class="post-date">January 2025</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="add-guide">
+    <h4>🌿 How to add a new blog post</h4>
+    <p>
+      Export your Canva design as JPG/PNG and save it to the <code>images/blog/</code> folder in your GitHub repo. Then copy one <code>post-card</code> block in this file and update:<br>
+      • Replace <code>post-placeholder</code> div with: <code>&lt;img src="images/blog/filename.jpg" alt="title"&gt;</code><br>
+      • Update <code>data-category</code>, post title, Chinese title, and date.
+    </p>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <div class="lightbox-img-area" id="lightboxImgArea"></div>
+    <div class="lightbox-body">
+      <div class="lightbox-cat" id="lightboxCat"></div>
+      <div class="lightbox-title" id="lightboxTitle"></div>
+      <div class="lightbox-title-zh" id="lightboxZh"></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div><div class="footer-logo-en">Origin Chinese Medicine</div><div class="footer-logo-zh">源·中医 · Singapore</div></div>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="index.html#about">About</a><a href="index.html#services">Services</a><a href="blog.html">Blog</a><a href="index.html#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 Origin Chinese Medicine</div>
+</footer>
+
+<script>
+  window.addEventListener('scroll',()=>{ document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>20); });
+  function openMobileNav(){ document.getElementById('mobileNav').classList.add('open'); }
+  function closeMobileNav(){ document.getElementById('mobileNav').classList.remove('open'); }
+  const obs=new IntersectionObserver((e)=>{ e.forEach(x=>{ if(x.isIntersecting) x.target.classList.add('visible'); }); },{threshold:0.1});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  function filterPosts(cat,btn){
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.post-card').forEach(c=>{ c.style.display=(cat==='all'||c.dataset.category===cat)?'block':'none'; });
+  }
+
+  function openLightbox(card){
+    const img=card.querySelector('img');
+    const ph=card.querySelector('.post-placeholder');
+    document.getElementById('lightboxCat').textContent=card.querySelector('.post-category').textContent;
+    document.getElementById('lightboxTitle').textContent=card.querySelector('.post-title').textContent;
+    document.getElementById('lightboxZh').textContent=card.querySelector('.post-title-zh').textContent;
+    const area=document.getElementById('lightboxImgArea');
+    if(img){ area.innerHTML=`<img src="${img.src}" alt="">`; }
+    else { area.innerHTML=`<div class="lb-placeholder">${ph.innerHTML}</div>`; }
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow=''; }
+  function closeLightboxOnBg(e){ if(e.target===document.getElementById('lightbox')) closeLightbox(); }
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLightbox(); });
+</script>
+</body>
+</html>
